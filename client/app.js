@@ -50,7 +50,7 @@ var observer = new MutationObserver(async function(mutations) {
           
       };
    
-      const response = await fetch("http://localhost:5500/create_preference", {
+      const response = await fetch("http://localhost:3000/create_preference", {
           method: "POST",
           headers: {
              "Content-type": "application/json",
