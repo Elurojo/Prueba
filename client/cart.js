@@ -1,8 +1,23 @@
+export default class Cart {
+  constructor() {
+      this.total = this.total;
+  }
+
+  obtenerTotal() {
+      // Lógica para calcular el total
+      // Supongamos que `item.precio` es la propiedad que contiene el precio de cada item
+      return this.total;
+  }
+}
+
+// Exporta la clase para que pueda ser utilizada en otros archivos
+
+
 // TODO ESTO ES PARA QUE TOME LAS IMAGES DE PRODUCT Y LAS PUEDAS VER
 // Y ADEMAS ESE LET CART ES QUE CADA VEZ QUE APRETES EN COMPRAR SE ALMACENE EN ALGUN LUGAR
 const shopContent = document.getElementById("shopContent");
 
-let cart = [];
+let cart1 = [];
 productos.forEach((product) => {
     const content = document.createElement("div");
     content.innerHTML = `
@@ -16,16 +31,16 @@ productos.forEach((product) => {
     const byButton = content.querySelector(".button");
     byButton.addEventListener("click", (function(product) {
         return function() {
-            const repeat = cart.some((repeatProduct) => repeatProduct.id === product.id);
+            const repeat = cart1.some((repeatProduct) => repeatProduct.id === product.id);
             if(repeat) {
-                cart.map((prod) => {
+                cart1.map((prod) => {
                   if(prod.id === product.id) {
                      prod.quanty++;
                      displayCartCounter();
                   }
                 });
             } else {
-                cart.push({
+                cart1.push({
                   id: product.id,
                   productName: product.productName,
                   price: product.price,
@@ -34,7 +49,7 @@ productos.forEach((product) => {
                 });
                 displayCartCounter();
             }
-            console.log(cart);
+            console.log(cart1);
         }
     })(product));
    });
@@ -75,7 +90,7 @@ const displayCart = () => {
 
  modalContainer.append(modalHeader);
 // Modal body
-cart.forEach((product)=>{
+cart1.forEach((product)=>{
     const modalBody = document.createElement("div");
     modalBody.className = "modal-body"
     modalBody.innerHTML = `
@@ -112,17 +127,17 @@ cart.forEach((product)=>{
 const displayCartCounter = () => {
     const counter = document.querySelector(".cart-counter");
     if (counter) {
-      counter.textContent = cart.length;
-      counter.style.display = cart.length > 0 ? "block" : "none";
+      counter.textContent = cart1.length;
+      counter.style.display = cart1.length > 0 ? "block" : "none";
     }
    };
    
   
   // FUNCION PARA ELIMINAR PRODUCTOS
   const deleteCartProduct = (id) => {
-    const foundId = cart.findIndex((element) => element.id === id);
+    const foundId = cart1.findIndex((element) => element.id === id);
     if (foundId !== -1) {
-        cart.splice(foundId, 1);
+        cart1.splice(foundId, 1);
         displayCart();
         displayCartCounter(); // para que tome el contador
     }
@@ -133,7 +148,7 @@ const displayCartCounter = () => {
 const increse = modalBody.querySelector(".quantity-btn-increse");
 increse.addEventListener("click", function() {
   increse.addEventListener("click", function(id) {
-    const currentProduct = cart.find(product => product.id === id);
+    const currentProduct = cart1.find(product => product.id === id);
     if (currentProduct) {
         currentProduct.quanty++;
         displayCart();
@@ -151,7 +166,7 @@ increse.addEventListener("click", function() {
  });
  
  //MODAL FOOTER
- const total = cart.reduce((acc, el) => acc + el.price * el.quanty, 0);
+ const total = cart1.reduce((acc, el) => acc + el.price * el.quanty, 0);
 
  const modalFooter = document.createElement("div");
  modalFooter.className = "modal-footer"
@@ -168,8 +183,8 @@ cartBtn.addEventListener("click", displayCart);
 
 // FUNCION PARA ELIMINAR PRODUCTOS
 const deleteCartProduct = (id) => {
-    const foundId = cart.findIndex((element) => element.id === id);
-    cart.splice(foundId, 1);
+    const foundId = cart1.findIndex((element) => element.id === id);
+    cart1.splice(foundId, 1);
     displayCart();
     displayCartCounter(); // para que tome el contador
     };
@@ -178,7 +193,7 @@ const deleteCartProduct = (id) => {
 const cartCounter = document.querySelector("#cart-counter");
 
 const displayCartCounter = () => {
-   const carteLength = cart.reduce((acc,el)=> acc + el.quanty, 0)
+   const carteLength = cart1.reduce((acc,el)=> acc + el.quanty, 0)
    if(carteLength > 0) {
       cartCounter.style.display = "block";
       cartCounter.innerText = carteLength;
@@ -187,4 +202,3 @@ const displayCartCounter = () => {
       cartCounter.style.display = "none"
    }
 };
-
